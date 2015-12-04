@@ -1,9 +1,12 @@
 package com.example.zz.game2048;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
@@ -31,38 +34,45 @@ public class AnimLayer extends FrameLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    public void createMoveAnim(final Card from, final Card to, final int fromX, int toX, int fromY, int toY) {
+    public void createMoveAnim(final Card from, final Card to, final int fromX, int toX, int fromY, int toY, final int saveNum) {
         final Card c = getCard(from.getNum());
         LayoutParams lp = new LayoutParams(Config.CARD_WIDTH, Config.CARD_WIDTH);
         lp.leftMargin = fromX * Config.CARD_WIDTH;
         lp.topMargin = fromY * Config.CARD_WIDTH;
         c.setLayoutParams(lp);
-
-//        if (to.getNum() <= 0) {
-//            to.getLabel().setVisibility(View.INVISIBLE);
-//        }
-        TranslateAnimation ta = new TranslateAnimation(0, Config.CARD_WIDTH * (toX - fromX),
-                0, Config.CARD_WIDTH * (toY - fromY));
-        ta.setDuration(1000);
-        ta.setAnimationListener(new Animation.AnimationListener() {
+        ObjectAnimator animator = null;
+        if (fromX != toX) {
+            animator = ObjectAnimator.ofFloat(c, "translationX", from.getX(), from.getX() + Config.CARD_WIDTH * (toX - fromX));
+        }else {
+            animator = ObjectAnimator.ofFloat(c, "translationY", from.getY(), from.getY() + Config.CARD_WIDTH * (toY - fromY));
+        }
+        animator.setDuration(500);
+        animator.addListener(new Animator.AnimatorListener() {
             @Override
-            public void onAnimationStart(Animation animation) {
+            public void onAnimationStart(Animator animation) {
 
             }
 
             @Override
-            public void onAnimationEnd(Animation animation) {
-                to.getLabel().setVisibility(View.VISIBLE);
+            public void onAnimationEnd(Animator animation) {
+                GameView.getThisHandler().sendEmptyMessage(Config.FRESH_CARDS);
                 recycleCard(c);
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation) {
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
 
             }
         });
-        c.startAnimation(ta);
+        animator.start();
+
     }
+
 
     private Card getCard(int num) {
         Card c;
@@ -79,11 +89,10 @@ public class AnimLayer extends FrameLayout {
 
     private void recycleCard(Card card) {
         card.setVisibility(View.INVISIBLE);
-        card.setAnimation(null);
-        cards.add(card);
+        //cards.add(card);
     }
 
-    public void CreateScaleTo1(Card target) {
+    public void CreateScaleTo1(final Card target) {
         ScaleAnimation sa = new ScaleAnimation(0.1f, 1, 0.1f, 1,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         sa.setDuration(100);

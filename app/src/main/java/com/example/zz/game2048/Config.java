@@ -7,4 +7,5 @@ public class Config {
     public static final int LINES = 4;
     public static int CARD_WIDTH = 0;
     public static boolean ANIM_FINISH_FLAG = false;
+    public static final int FRESH_CARDS = 1;
 }
