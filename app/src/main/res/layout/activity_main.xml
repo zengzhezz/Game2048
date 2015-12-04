@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/container"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -12,23 +13,63 @@
 
         <TextView
             android:text="@string/score"
+            android:gravity="center"
+            android:textAppearance="?android:textAppearanceLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/tvScore"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@string/bestScore"
+            android:gravity="center"
+            android:textAppearance="?android:textAppearanceLarge"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvBestScore"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
-    <com.example.zz.game2048.GameView
-        android:id="@+id/gameView"
+    <Button
+        android:id="@+id/btnNewGame"
+        android:text="@string/newGame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <FrameLayout
+        android:id="@+id/gameContainer"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp">
 
-    </com.example.zz.game2048.GameView>
+        <com.example.zz.game2048.GameView
+            android:id="@+id/gameView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.example.zz.game2048.GameView>
+
+        <com.example.zz.game2048.AnimLayer
+            android:id="@+id/animLayer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.example.zz.game2048.AnimLayer>
+
+    </FrameLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
