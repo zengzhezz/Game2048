@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
@@ -25,25 +26,28 @@ public class GameView extends GridLayout {
     public static Card[][] cardMap = new Card[4][4];
     public static Card[][] tempCardMap = new Card[4][4];
     public static GameView gameView = null;
+    public Context context;
 
     public static GameView getGameView() {
         return gameView;
     }
 
-
     public GameView(Context context) {
         super(context);
         initGameView();
+        this.context = context;
     }
 
     public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initGameView();
+        this.context = context;
     }
 
     public GameView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initGameView();
+        this.context = context;
     }
 
     private void initGameView() {
@@ -83,6 +87,7 @@ public class GameView extends GridLayout {
         });
     }
 
+    MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.hehe);
     private void swipeLeft() {
         boolean merge = false;
         int saveNum = 0;
@@ -116,6 +121,7 @@ public class GameView extends GridLayout {
             }
         }
         if (merge) {
+            mediaPlayer.start();
             addRandowNum();
             checkComplete();
         }
@@ -138,16 +144,6 @@ public class GameView extends GridLayout {
             }
         }
     };
-
-    private void cloneCardMap(Card[][] cardMap, Card[][] cardMap2) {
-        Card c;
-        for (int y = 0; y < Config.LINES; y++) {
-            for (int x = 0; x < Config.LINES; x++) {
-                c = new Card(getContext());
-
-            }
-        }
-    }
 
     private void swipeRight() {
         boolean merge = false;
@@ -181,6 +177,7 @@ public class GameView extends GridLayout {
             }
         }
         if (merge) {
+            mediaPlayer.start();
             addRandowNum();
             checkComplete();
         }
@@ -218,6 +215,7 @@ public class GameView extends GridLayout {
             }
         }
         if (merge) {
+            mediaPlayer.start();
             addRandowNum();
             checkComplete();
         }
@@ -255,6 +253,7 @@ public class GameView extends GridLayout {
             }
         }
         if (merge) {
+            mediaPlayer.start();
             addRandowNum();
             checkComplete();
         }
@@ -297,6 +296,7 @@ public class GameView extends GridLayout {
         addRandowNum();
         addRandowNum();
         MainActivity.getMainActivity().clearScore();
+        MainActivity.getMainActivity().showBestScore();
         asyNum2();
     }
 
@@ -325,8 +325,10 @@ public class GameView extends GridLayout {
                 }
             }
         }
-        Point p = emptyPoints.remove((int) (Math.random() * emptyPoints.size()));
-        tempCardMap[p.x][p.y].setNum(Math.random() > 0.1 ? 2 : 4);
+        if (emptyPoints.size() > 0) {
+            Point p = emptyPoints.remove((int) (Math.random() * emptyPoints.size()));
+            tempCardMap[p.x][p.y].setNum(Math.random() > 0.1 ? 2 : 4);
+        }
     }
 
     private void checkComplete() {
@@ -334,16 +336,19 @@ public class GameView extends GridLayout {
         All:
         for (int y = 0; y < 4; y++) {
             for (int x = 0; x < 4; x++) {
-                if (cardMap[x][y].getNum() == 0 || (x > 0 && cardMap[x][y].equals(cardMap[x - 1][y]))
-                        || (x < 3 && cardMap[x][y].equals(cardMap[x + 1][y]))
-                        || (y > 0 && cardMap[x][y].equals(cardMap[x][y - 1]))
-                        || (y < 3 && cardMap[x][y].equals(cardMap[x][y + 1]))) {
+                if (tempCardMap[x][y].getNum() == 0 || (x > 0 && tempCardMap[x][y].equals(tempCardMap[x - 1][y]))
+                        || (x < 3 && tempCardMap[x][y].equals(tempCardMap[x + 1][y]))
+                        || (y > 0 && tempCardMap[x][y].equals(tempCardMap[x][y - 1]))
+                        || (y < 3 && tempCardMap[x][y].equals(tempCardMap[x][y + 1]))) {
                     complete = false;
                     break All;
                 }
             }
         }
         if (complete) {
+            if (MainActivity.getMainActivity().getScore() > MainActivity.getMainActivity().getBestScore()) {
+                MainActivity.getMainActivity().saveBestScore(MainActivity.getMainActivity().getScore());
+            }
             new AlertDialog.Builder(getContext()).setTitle("你好").setMessage("游戏结束").setPositiveButton("重来", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

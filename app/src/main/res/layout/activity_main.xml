@@ -8,6 +8,7 @@
 
     <LinearLayout
         android:orientation="horizontal"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -43,11 +44,19 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnNewGame"
-        android:text="@string/newGame"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="100dp">
+
+        <Button
+            android:id="@+id/btnNewGame"
+            android:text="@string/newGame"
+            android:layout_gravity="end|bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
 
     <FrameLayout
         android:id="@+id/gameContainer"
@@ -69,84 +78,92 @@
 
         </com.example.zz.game2048.AnimLayer>
 
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/imageView_b"
-            android:src="@drawable/b"
-            android:layout_gravity="bottom"
-            android:paddingLeft="5dp"
-            android:paddingBottom="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ImageView
-            android:id="@+id/imageView_c"
-            android:src="@drawable/c"
-            android:layout_gravity="bottom"
-            android:paddingLeft="5dp"
-            android:paddingBottom="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ImageView
-            android:id="@+id/imageView_d"
-            android:src="@drawable/d"
-            android:layout_gravity="bottom"
-            android:paddingLeft="5dp"
-            android:paddingBottom="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ImageView
-            android:id="@+id/imageView_e"
-            android:src="@drawable/e"
-            android:layout_gravity="bottom"
-            android:paddingLeft="5dp"
-            android:paddingBottom="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ImageView
-            android:id="@+id/imageView_f"
-            android:src="@drawable/f"
-            android:layout_gravity="bottom"
-            android:paddingLeft="5dp"
-            android:paddingBottom="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ImageView
-            android:id="@+id/imageView_g"
-            android:src="@drawable/g"
-            android:layout_gravity="bottom"
-            android:paddingLeft="5dp"
-            android:paddingBottom="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ImageView
-            android:id="@+id/imageView_h"
-            android:src="@drawable/h"
-            android:layout_gravity="bottom"
-            android:paddingLeft="5dp"
-            android:paddingBottom="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ImageView
-            android:id="@+id/imageView_a"
-            android:src="@drawable/a"
-            android:layout_gravity="bottom"
-            android:paddingLeft="2dp"
-            android:paddingBottom="2dp"
+        <TextView
+            android:text="designed by zz"
+            android:textColor="#565889"
+            android:layout_gravity="right|bottom"
+            android:layout_marginRight="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </FrameLayout>
+
+    <!--<FrameLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/imageView_b"-->
+            <!--android:src="@drawable/b"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:paddingLeft="5dp"-->
+            <!--android:paddingBottom="5dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/imageView_c"-->
+            <!--android:src="@drawable/c"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:paddingLeft="5dp"-->
+            <!--android:paddingBottom="5dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/imageView_d"-->
+            <!--android:src="@drawable/d"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:paddingLeft="5dp"-->
+            <!--android:paddingBottom="5dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/imageView_e"-->
+            <!--android:src="@drawable/e"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:paddingLeft="5dp"-->
+            <!--android:paddingBottom="5dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/imageView_f"-->
+            <!--android:src="@drawable/f"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:paddingLeft="5dp"-->
+            <!--android:paddingBottom="5dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/imageView_g"-->
+            <!--android:src="@drawable/g"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:paddingLeft="5dp"-->
+            <!--android:paddingBottom="5dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/imageView_h"-->
+            <!--android:src="@drawable/h"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:paddingLeft="5dp"-->
+            <!--android:paddingBottom="5dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/imageView_a"-->
+            <!--android:src="@drawable/a"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:paddingLeft="2dp"-->
+            <!--android:paddingBottom="2dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+
+    <!--</FrameLayout>-->
 
 </LinearLayout>

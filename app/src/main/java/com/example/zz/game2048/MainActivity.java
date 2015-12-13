@@ -26,12 +26,12 @@ public class MainActivity extends AppCompatActivity {
     private static final String SP_KEY_BEST_SCORE = "bestScore";
     private LinearLayout root = null;
     private GameView gameView = null;
-    //TODO
-    private int[] res = {R.id.imageView_a, R.id.imageView_b, R.id.imageView_c, R.id.imageView_d,
-            R.id.imageView_e, R.id.imageView_f, R.id.imageView_g, R.id.imageView_h};
-    private List<ImageView> imageViewList = new ArrayList<ImageView>();
-    private boolean flag = true;
-    //END_TODO
+//    //TODO
+//    private int[] res = {R.id.imageView_a, R.id.imageView_b, R.id.imageView_c, R.id.imageView_d,
+//            R.id.imageView_e, R.id.imageView_f, R.id.imageView_g, R.id.imageView_h};
+//    private List<ImageView> imageViewList = new ArrayList<ImageView>();
+//    private boolean flag = true;
+//    //END_TODO
 
     public MainActivity() {
         mainActivity = this;
@@ -55,50 +55,50 @@ public class MainActivity extends AppCompatActivity {
                 gameView.startGame();
             }
         });
-        //TODO
-        for (int i = 0; i < res.length; i++) {
-            ImageView imageView = (ImageView) findViewById(res[i]);
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    switch (v.getId()) {
-                        case R.id.imageView_a:
-                            if (flag == true) {
-                                startAnim();
-                                flag = false;
-                            } else {
-                                closeAnim();
-                                flag = true;
-                            }
-                            break;
-                        default:
-                            Toast.makeText(MainActivity.this,"click" + v.getId(), Toast.LENGTH_SHORT).show();
-                            break;
-                    }
-                }
-            });
-            imageViewList.add(imageView);
-        }
-        //END_TODO
+//        //TODO
+//        for (int i = 0; i < res.length; i++) {
+//            ImageView imageView = (ImageView) findViewById(res[i]);
+//            imageView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    switch (v.getId()) {
+//                        case R.id.imageView_a:
+//                            if (flag == true) {
+//                                startAnim();
+//                                flag = false;
+//                            } else {
+//                                closeAnim();
+//                                flag = true;
+//                            }
+//                            break;
+//                        default:
+//                            Toast.makeText(MainActivity.this,"click" + v.getId(), Toast.LENGTH_SHORT).show();
+//                            break;
+//                    }
+//                }
+//            });
+//            imageViewList.add(imageView);
+//        }
+//        //END_TODO
     }
 
-    //TODO
-    private void startAnim() {
-        for (int i = 1; i < res.length; i++) {
-            ObjectAnimator animator = ObjectAnimator.ofFloat(imageViewList.get(i), "translationX", 0F, i * 130);
-            animator.setDuration(300);
-            animator.start();
-        }
-    }
-
-    private void closeAnim() {
-        for (int i = 1; i < res.length; i++) {
-            ObjectAnimator animator = ObjectAnimator.ofFloat(imageViewList.get(i), "translationX", i * 130, 0F);
-            animator.setDuration(300);
-            animator.start();
-        }
-    }
-    //END_TODO
+//    //TODO
+//    private void startAnim() {
+//        for (int i = 1; i < res.length; i++) {
+//            ObjectAnimator animator = ObjectAnimator.ofFloat(imageViewList.get(i), "translationX", 0F, i * 130);
+//            animator.setDuration(300);
+//            animator.start();
+//        }
+//    }
+//
+//    private void closeAnim() {
+//        for (int i = 1; i < res.length; i++) {
+//            ObjectAnimator animator = ObjectAnimator.ofFloat(imageViewList.get(i), "translationX", i * 130, 0F);
+//            animator.setDuration(300);
+//            animator.start();
+//        }
+//    }
+//    //END_TODO
 
     public AnimLayer getAnimLayer() {
         return animLayer;
@@ -125,6 +125,10 @@ public class MainActivity extends AppCompatActivity {
         showScore();
     }
 
+    public int getScore() {
+        return score;
+    }
+
     public void saveBestScore(int score) {
         SharedPreferences.Editor e = getPreferences(MODE_PRIVATE).edit();
         e.putInt(SP_KEY_BEST_SCORE, score);
@@ -135,7 +139,8 @@ public class MainActivity extends AppCompatActivity {
         return getPreferences(MODE_PRIVATE).getInt(SP_KEY_BEST_SCORE, 0);
     }
 
-    public void showBestScore(int score) {
+    public void showBestScore() {
+        int score = getBestScore();
         tvBestScore.setText(score + "");
     }
 }

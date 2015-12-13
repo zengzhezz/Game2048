@@ -1,8 +1,10 @@
 package com.example.zz.game2048;
 
 import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
@@ -40,13 +42,18 @@ public class AnimLayer extends FrameLayout {
         lp.leftMargin = fromX * Config.CARD_WIDTH;
         lp.topMargin = fromY * Config.CARD_WIDTH;
         c.setLayoutParams(lp);
+        AnimatorSet animatorSet = new AnimatorSet();
         ObjectAnimator animator = null;
+        ObjectAnimator animator1 = null;
         if (fromX != toX) {
             animator = ObjectAnimator.ofFloat(c, "translationX", from.getX(), from.getX() + Config.CARD_WIDTH * (toX - fromX));
         }else {
             animator = ObjectAnimator.ofFloat(c, "translationY", from.getY(), from.getY() + Config.CARD_WIDTH * (toY - fromY));
         }
-        animator.setDuration(500);
+        animator1 = ObjectAnimator.ofFloat(c, "scale", 1f, 1f);
+        animator1.setDuration(100);
+        animatorSet.playSequentially(animator, animator1);
+        animator.setDuration(200);
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
@@ -55,7 +62,29 @@ public class AnimLayer extends FrameLayout {
 
             @Override
             public void onAnimationEnd(Animator animation) {
+                c.setNum(saveNum);
                 GameView.getThisHandler().sendEmptyMessage(Config.FRESH_CARDS);
+                //recycleCard(c);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        animator1.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
                 recycleCard(c);
             }
 
@@ -69,8 +98,7 @@ public class AnimLayer extends FrameLayout {
 
             }
         });
-        animator.start();
-
+        animatorSet.start();
     }
 
 
